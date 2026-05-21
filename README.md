@@ -1,4 +1,4 @@
-Berikut catatan dokumentasi backend Go untuk integrasi API attendance yang cocok dipasang di README GitHub.
+Berikut catatan dokumentasi backend Go untuk integrasi API attendance.
 
 # Attendance API Integration (Go)
 
