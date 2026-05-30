@@ -1,10 +1,10 @@
 # Attendance API Integration
 
-Dokumentasi integrasi API Attendance untuk menerima data absensi karyawan dari aplikasi Attendance.
+Documentation for integrating the Attendance API to receive employee attendance records from the Attendance application.
 
 ## Overview
 
-Attendance API digunakan untuk mengirim data absensi dari aplikasi Attendance ke sistem backend pihak ketiga.
+The Attendance API allows your system to receive employee attendance data from the Attendance application through a secure HTTP endpoint.
 
 ## Endpoint
 
@@ -16,11 +16,11 @@ Attendance API digunakan untuk mengirim data absensi dari aplikasi Attendance ke
 https://your.api.com/attendance
 ```
 
-> Ganti URL di atas dengan endpoint API Anda.
+> Replace the URL above with your actual API endpoint.
 
 ## Authentication
 
-Gunakan API Key pada header request.
+Requests must include an API Key in the HTTP headers.
 
 | Header       | Value            |
 | ------------ | ---------------- |
@@ -57,21 +57,21 @@ curl -X POST "https://your.api.com/attendance" \
 
 ## Field Description
 
-| Field          | Type    | Description                   |
-| -------------- | ------- | ----------------------------- |
-| personId       | integer | Employee ID                   |
-| personName     | string  | Employee name                 |
-| status         | integer | Attendance status             |
-| timestamp      | long    | Unix timestamp (milliseconds) |
-| tanggal        | string  | Attendance date               |
-| jamMasuk       | string  | Check-in time                 |
-| jamPulang      | string  | Check-out time                |
-| shiftId        | integer | Shift ID                      |
-| shiftName      | string  | Shift name                    |
-| shiftSchedule  | string  | Shift schedule                |
-| terlambatMenit | integer | Late minutes                  |
-| lemburMenit    | integer | Overtime minutes              |
-| statusText     | string  | Attendance status text        |
+| Field          | Type    | Description                      |
+| -------------- | ------- | -------------------------------- |
+| personId       | integer | Employee identifier              |
+| personName     | string  | Employee name                    |
+| status         | integer | Attendance status code           |
+| timestamp      | long    | Unix timestamp in milliseconds   |
+| tanggal        | string  | Attendance date                  |
+| jamMasuk       | string  | Check-in time                    |
+| jamPulang      | string  | Check-out time                   |
+| shiftId        | integer | Shift identifier                 |
+| shiftName      | string  | Shift name                       |
+| shiftSchedule  | string  | Scheduled shift time             |
+| terlambatMenit | integer | Late arrival in minutes          |
+| lemburMenit    | integer | Overtime duration in minutes     |
+| statusText     | string  | Human-readable attendance status |
 
 ## Success Response
 
@@ -93,10 +93,14 @@ curl -X POST "https://your.api.com/attendance" \
 
 ## Example Integrations
 
-| Language | File                       |
+| Language | Example                    |
 | -------- | -------------------------- |
 | Golang   | examples/golang/main.go    |
 | Node.js  | examples/nodejs/index.js   |
 | PHP      | examples/php/index.php     |
 | Python   | examples/python/main.py    |
 | C#       | examples/csharp/Program.cs |
+
+## License
+
+This repository is provided as an example implementation for Attendance API integration.
