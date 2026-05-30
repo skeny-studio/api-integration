@@ -7,37 +7,44 @@ API ini digunakan untuk mengambil data absensi karyawan.
 ## Endpoint
 
 ```bash
-GET /attendance
+POST 
 Headers
 Header	Value
 X-API-Key	YOUR_API_KEY
 Content-Type	application/json
-Example Request
-curl -X GET "https://your.api.com/attendance" \
+
+Request
+curl -X POST "https://your.api.com/attendance" \
 -H "X-API-Key: YOUR_API_KEY" \
 -H "Content-Type: application/json"
-Example Response
+
+</> JSON:
 {
-  "status": "success",
-  "data": [
-    {
-      "personId": 1,
-      "personName": "Budi Santoso",
-      "status": 1,
-      "timestamp": 1778450400000,
-      "tanggal": "10 May 2026",
-      "jamMasuk": "08:01",
-      "jamPulang": "17:05",
-      "shiftId": 2,
-      "shiftName": "Morning",
-      "shiftSchedule": "08:00 - 17:00",
-      "terlambatMenit": 1,
-      "lemburMenit": 15,
-      "statusText": "Present"
-    }
-  ]
+  "personId": 1,
+  "personName": "Budi Santoso",
+  "status": 1,
+  "timestamp": 1778450400000,
+  "tanggal": "10 May 2026",
+  "jamMasuk": "08:01",
+  "jamPulang": "17:05",
+  "shiftId": 2,
+  "shiftName": "Morning",
+  "shiftSchedule": "08:00 - 17:00",
+  "terlambatMenit": 1,
+  "lemburMenit": 15,
+  "statusText": "Present"
 }
-Golang Integration Example
+
+Response
+</> JSON :
+{
+  "success": true,
+  "message": "OK"
+}
+
+
+Golang Example
+
 package main
 
 import (
@@ -70,9 +77,9 @@ type Attendance struct {
 
 func main() {
 
-	url := "https://your.api.com/attendance"
+	url := "https://your.api.com"
 
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequest("POST", url, nil)
 	if err != nil {
 		panic(err)
 	}
@@ -111,9 +118,3 @@ func main() {
 		fmt.Println("---------------------")
 	}
 }
-Attendance Status
-Status	Description
-0	Absent
-1	Present
-2	Late
-3	Leave
