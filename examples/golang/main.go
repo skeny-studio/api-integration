@@ -1,73 +1,51 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
-	"io"
-	"net/http"
+	"log"
+	db "api_integrasi/database"
+	"api_integrasi/model"
+	"api_integrasi/route"
+
+	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
-type AttendanceResponse struct {
-	Status string       `json:"status"`
-	Data   []Attendance `json:"data"`
-}
-
-type Attendance struct {
-	PersonID        int    `json:"personId"`
-	PersonName      string `json:"personName"`
-	Status          int    `json:"status"`
-	Timestamp       int64  `json:"timestamp"`
-	Tanggal         string `json:"tanggal"`
-	JamMasuk        string `json:"jamMasuk"`
-	JamPulang       string `json:"jamPulang"`
-	ShiftID         int    `json:"shiftId"`
-	ShiftName       string `json:"shiftName"`
-	ShiftSchedule   string `json:"shiftSchedule"`
-	TerlambatMenit  int    `json:"terlambatMenit"`
-	LemburMenit     int    `json:"lemburMenit"`
-	StatusText      string `json:"statusText"`
-}
 
 func main() {
+	loadEnv()
+	loadDatabase()
+	serveApplication()
+}
 
-	url := "https://your.api.com"
-
-	req, err := http.NewRequest("POST", url, nil)
+func loadEnv() {
+	err := godotenv.Load(".env")
 	if err != nil {
-		panic(err)
+		log.Fatal("Error loading .env file")
 	}
+}
 
-	req.Header.Set("X-API-Key", "YOUR_API_KEY")
-	req.Header.Set("Content-Type", "application/json")
+func loadDatabase() {
+	db.Connect()
 
-	client := &http.Client{}
+	err := db.Database.AutoMigrate(
+		&model.AttendanceRecord{},
+	)
 
-	resp, err := client.Do(req)
 	if err != nil {
-		panic(err)
-	}
-	defer resp.Body.Close()
-
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		panic(err)
+		log.Fatal("Migration failed:", err)
 	}
 
-	var result AttendanceResponse
 
-	err = json.Unmarshal(body, &result)
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println("Database migrated successfully")
+}
 
-	fmt.Println("Status:", result.Status)
 
-	for _, item := range result.Data {
-		fmt.Println("Nama:", item.PersonName)
-		fmt.Println("Tanggal:", item.Tanggal)
-		fmt.Println("Jam Masuk:", item.JamMasuk)
-		fmt.Println("Jam Pulang:", item.JamPulang)
-		fmt.Println("Status:", item.StatusText)
-		fmt.Println("---------------------")
-	}
+func serveApplication() {
+	//gin.SetMode(gin.ReleaseMode)
+	router := gin.Default()
+
+	route.Route(router)
+	router.Run(":8888")
+	fmt.Println("Server running on port 8888")
 }
