@@ -9,7 +9,7 @@ The Attendance API allows your system to receive employee attendance data from t
 ## Base URL
 
 ```text
-https://your.api.com
+http://your.api.com
 ```
 
 > Replace the URL above with your actual API endpoint.
@@ -40,7 +40,7 @@ All requests must include an API Key in the HTTP headers.
 ### Example
 
 ```bash
-curl -X POST "https://your.api.com/check-in" \
+curl -X POST "http://your.api.com/check-in" \
 -H "X-API-Key: YOUR_API_KEY" \
 -H "Content-Type: application/json" \
 -d '{
@@ -79,7 +79,7 @@ curl -X POST "https://your.api.com/check-in" \
 ### Example
 
 ```bash
-curl -X PUT "https://your.api.com/check-out" \
+curl -X PUT "http://your.api.com/check-out" \
 -H "X-API-Key: YOUR_API_KEY" \
 -H "Content-Type: application/json" \
 -d '{
