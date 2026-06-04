@@ -34,7 +34,7 @@ All requests must include an API Key in the HTTP headers.
 **POST**
 
 ```text
-/attendance/check-in
+/check-in
 ```
 
 ### Example
@@ -73,7 +73,7 @@ curl -X POST "http://your.api.com/check-in" \
 **PUT**
 
 ```text
-/attendance/check-out
+/check-out
 ```
 
 ### Example
