@@ -105,25 +105,24 @@ curl -X PUT "http://your.api.com/check-out" \
 
 ---
 
-## Request Body
+## Field Description
+| Field           | Type        | Description                                      |
+| --------------- | ----------- | ------------------------------------------------ |
+| sessionKey      | string      | Unique attendance session identifier             |
+| personId        | integer     | Employee identifier                              |
+| personName      | string      | Employee name                                    |
+| shiftId         | integer     | Shift identifier                                 |
+| shiftName       | string      | Shift name                                       |
+| checkInTime     | long        | Check-in timestamp in milliseconds               |
+| checkOutTime    | long / null | Check-out timestamp in milliseconds              |
+| lateMinutes     | integer     | Late arrival duration in minutes                 |
+| overtimeMinutes | integer     | Overtime duration in minutes                     |
+| statusText      | string      | Attendance status description                    |
+| deviceId        | string      | Device identifier                                |
+| idempotencyKey  | string      | Unique key used to prevent duplicate submissions |
 
-```json
-{
-  "personId": 1,
-  "personName": "Budi Santoso",
-  "status": 1,
-  "timestamp": 1778450400000,
-  "tanggal": "10 May 2026",
-  "jamMasuk": "08:01",
-  "jamPulang": "17:05",
-  "shiftId": 2,
-  "shiftName": "Morning",
-  "shiftSchedule": "08:00 - 17:00",
-  "lateMinutess": 1,
-  "overtimeMinutes": 15,
-  "statusText": "Present"
-}
-```
+
+---
 
 ## Success Response
 
