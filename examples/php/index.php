@@ -1,39 +1,22 @@
 <?php
 
-$url = "https://your.api.com/attendance";
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-$headers = [
-    "X-API-Key: YOUR_API_KEY",
-    "Content-Type: application/json"
-];
+switch ($uri) {
 
-$ch = curl_init($url);
+    case '/check-in':
+        require 'checkin.php';
+        break;
 
-curl_setopt_array($ch, [
-    CURLOPT_POST => true,
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_HTTPHEADER => $headers
-]);
+    case '/check-out':
+        require 'checkout.php';
+        break;
 
-$response = curl_exec($ch);
+    default:
+        http_response_code(404);
 
-if (curl_errno($ch)) {
-    die("Request failed: " . curl_error($ch));
-}
-
-curl_close($ch);
-
-$result = json_decode($response, true);
-
-echo "Status: " . ($result['status'] ?? 'N/A') . PHP_EOL;
-
-if (!empty($result['data'])) {
-    foreach ($result['data'] as $item) {
-        echo "Name: " . $item['personName'] . PHP_EOL;
-        echo "Date: " . $item['tanggal'] . PHP_EOL;
-        echo "Check In: " . $item['jamMasuk'] . PHP_EOL;
-        echo "Check Out: " . $item['jamPulang'] . PHP_EOL;
-        echo "Status: " . $item['statusText'] . PHP_EOL;
-        echo "---------------------" . PHP_EOL;
-    }
+        echo json_encode([
+            'success' => false,
+            'message' => 'Route not found'
+        ]);
 }
