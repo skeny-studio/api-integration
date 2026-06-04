@@ -8,37 +8,6 @@ import (
 	"gorm.io/gorm"
 )
 
-func ReceiveAttendance(c *gin.Context) {
-
-	var req []model.AttendanceRecord
-
-	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(400, gin.H{"success": false, "message": err.Error()})
-		return
-	}
-
-	for _, item := range req {
-
-		var existing model.AttendanceRecord
-
-		err := config.Database.
-			Where("idempotency_key = ?", item.IdempotencyKey).
-			First(&existing).Error
-
-		if err == nil {
-			// sudah ada → skip
-			continue
-		}
-
-		config.Database.Create(&item)
-	}
-
-	c.JSON(200, gin.H{
-		"success": true,
-		"message": "OK",
-	})
-}
-
 
 func CheckIn(c *gin.Context) {
 
