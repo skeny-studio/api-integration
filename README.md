@@ -54,8 +54,8 @@ curl -X POST "https://your.api.com/attendance/check-in" \
   "checkInTime": 1778450400000,
   "checkOutTime": null,
 
-  "lateMinutes": 1,
-  "overtimeMinutes": 15,
+  "lateMinutes": 0,
+  "overtimeMinutes": 0,
 
   "statusText": "Present",
 
