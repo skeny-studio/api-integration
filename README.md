@@ -9,7 +9,7 @@ The Attendance API allows your system to receive employee attendance data from t
 ## Base URL
 
 ```text
-https://your.api.com/attendance
+https://your.api.com
 ```
 
 > Replace the URL above with your actual API endpoint.
@@ -40,7 +40,7 @@ All requests must include an API Key in the HTTP headers.
 ### Example
 
 ```bash
-curl -X POST "https://your.api.com/attendance/check-in" \
+curl -X POST "https://your.api.com/check-in" \
 -H "X-API-Key: YOUR_API_KEY" \
 -H "Content-Type: application/json" \
 -d '{
@@ -79,7 +79,7 @@ curl -X POST "https://your.api.com/attendance/check-in" \
 ### Example
 
 ```bash
-curl -X PUT "https://your.api.com/attendance/check-out" \
+curl -X PUT "https://your.api.com/check-out" \
 -H "X-API-Key: YOUR_API_KEY" \
 -H "Content-Type: application/json" \
 -d '{
@@ -164,19 +164,6 @@ curl -X PUT "https://your.api.com/attendance/check-out" \
 {
   "success": false,
   "message": "Invalid API Key"
-}
-```
-
----
-
-## Route Definition
-
-```go
-attendance := router.Group("/attendance")
-attendance.Use(middleware.APIKeyMiddleware())
-{
-    attendance.POST("/check-in", controller.CheckIn)
-    attendance.PUT("/check-out", controller.CheckOut)
 }
 ```
 

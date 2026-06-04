@@ -9,7 +9,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use("/attendance", attendanceRoutes);
+app.use("/", attendanceRoutes);
 
 sequelize
   .authenticate()

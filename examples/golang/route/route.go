@@ -11,15 +11,16 @@ func Route(router *gin.Engine) {
 
 	//  Public route
 	router.GET("/", func(c *gin.Context) {
-		c.String(200, "Welcome To This Website Api GO")
+		c.String(200, "Welcome To This Api")
 	})
 
 	
 
-	attendance := router.Group("/api")
+	attendance := router.Group("/")
 	attendance.Use(middleware.APIKeyMiddleware())
 	{
-		attendance.POST("/attendance", controller.ReceiveAttendance)
+		attendance.POST("/check-in", controller.CheckIn)
+		attendance.PUT("/check-out", controller.CheckOut)
 	}
 
 
