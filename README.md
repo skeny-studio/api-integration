@@ -119,33 +119,11 @@ curl -X PUT "http://your.api.com/check-out" \
   "shiftId": 2,
   "shiftName": "Morning",
   "shiftSchedule": "08:00 - 17:00",
-  "terlambatMenit": 1,
-  "lemburMenit": 15,
+  "lateMinutess": 1,
+  "overtimeMinutes": 15,
   "statusText": "Present"
 }
 ```
-
----
-
-## Field Description
-
-| Field          | Type    | Description                      |
-| -------------- | ------- | -------------------------------- |
-| personId       | integer | Employee identifier              |
-| personName     | string  | Employee name                    |
-| status         | integer | Attendance status code           |
-| timestamp      | long    | Unix timestamp in milliseconds   |
-| tanggal        | string  | Attendance date                  |
-| jamMasuk       | string  | Check-in time                    |
-| jamPulang      | string  | Check-out time                   |
-| shiftId        | integer | Shift identifier                 |
-| shiftName      | string  | Shift name                       |
-| shiftSchedule  | string  | Scheduled shift time             |
-| terlambatMenit | integer | Late arrival in minutes          |
-| lemburMenit    | integer | Overtime duration in minutes     |
-| statusText     | string  | Human-readable attendance status |
-
----
 
 ## Success Response
 
