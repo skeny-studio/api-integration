@@ -9,6 +9,6 @@ npm install mysql2
 PostgreSQL
 npm install pg pg-hstore
 
-Auto restart saat development:
+Auto restart development:
 
 npm install -D nodemon
