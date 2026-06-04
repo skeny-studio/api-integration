@@ -4,13 +4,9 @@ Documentation for integrating the Attendance API to receive employee attendance 
 
 ## Overview
 
-The Attendance API allows your system to receive employee attendance data from the Attendance application through a secure HTTP endpoint.
+The Attendance API allows your system to receive employee attendance data from the Attendance application through secure HTTP endpoints.
 
-## Endpoint
-
-### POST Attendance
-
-**URL**
+## Base URL
 
 ```text
 https://your.api.com/attendance
@@ -18,22 +14,96 @@ https://your.api.com/attendance
 
 > Replace the URL above with your actual API endpoint.
 
+---
+
 ## Authentication
 
-Requests must include an API Key in the HTTP headers.
+All requests must include an API Key in the HTTP headers.
 
 | Header       | Value            |
 | ------------ | ---------------- |
 | X-API-Key    | YOUR_API_KEY     |
 | Content-Type | application/json |
 
-## cURL Example
+---
+
+# Check-In Endpoint
+
+## Request
+
+**POST**
+
+```text
+/attendance/check-in
+```
+
+### Example
 
 ```bash
-curl -X POST "https://your.api.com/attendance" \
+curl -X POST "https://your.api.com/attendance/check-in" \
 -H "X-API-Key: YOUR_API_KEY" \
--H "Content-Type: application/json"
+-H "Content-Type: application/json" \
+-d '{
+  "sessionKey": "SESSION-20260510-001",
+  "personId": 1,
+  "personName": "John Doe",
+
+  "shiftId": 2,
+  "shiftName": "Morning Shift",
+
+  "checkInTime": 1778450400000,
+  "checkOutTime": null,
+
+  "lateMinutes": 1,
+  "overtimeMinutes": 15,
+
+  "statusText": "Present",
+
+  "deviceId": "ANDROID-KIOSK-01",
+  "idempotencyKey": "ATT-1-1778450400000"
+}'
 ```
+
+---
+
+# Check-Out Endpoint
+
+## Request
+
+**PUT**
+
+```text
+/attendance/check-out
+```
+
+### Example
+
+```bash
+curl -X PUT "https://your.api.com/attendance/check-out" \
+-H "X-API-Key: YOUR_API_KEY" \
+-H "Content-Type: application/json" \
+-d '{
+  "sessionKey": "SESSION-20260510-001",
+  "personId": 1,
+  "personName": "John Doe",
+
+  "shiftId": 2,
+  "shiftName": "Morning Shift",
+
+  "checkInTime": 1778450400000,
+  "checkOutTime": 1778483100000,
+
+  "lateMinutes": 1,
+  "overtimeMinutes": 15,
+
+  "statusText": "Present",
+
+  "deviceId": "ANDROID-KIOSK-01",
+  "idempotencyKey": "ATT-1-1778450400000"
+}'
+```
+
+---
 
 ## Request Body
 
@@ -55,6 +125,8 @@ curl -X POST "https://your.api.com/attendance" \
 }
 ```
 
+---
+
 ## Field Description
 
 | Field          | Type    | Description                      |
@@ -73,6 +145,8 @@ curl -X POST "https://your.api.com/attendance" \
 | lemburMenit    | integer | Overtime duration in minutes     |
 | statusText     | string  | Human-readable attendance status |
 
+---
+
 ## Success Response
 
 ```json
@@ -81,6 +155,8 @@ curl -X POST "https://your.api.com/attendance" \
   "message": "OK"
 }
 ```
+
+---
 
 ## Error Response
 
@@ -91,6 +167,21 @@ curl -X POST "https://your.api.com/attendance" \
 }
 ```
 
+---
+
+## Route Definition
+
+```go
+attendance := router.Group("/attendance")
+attendance.Use(middleware.APIKeyMiddleware())
+{
+    attendance.POST("/check-in", controller.CheckIn)
+    attendance.PUT("/check-out", controller.CheckOut)
+}
+```
+
+---
+
 ## Example Integrations
 
 | Language | Example                    |
@@ -100,6 +191,8 @@ curl -X POST "https://your.api.com/attendance" \
 | PHP      | examples/php/index.php     |
 | Python   | examples/python/main.py    |
 | C#       | examples/csharp/Program.cs |
+
+---
 
 ## License
 
